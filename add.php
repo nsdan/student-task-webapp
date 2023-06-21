@@ -11,9 +11,9 @@
 	?>
 	<h1>Form Menambahkan Data Meeting</h1>
 	<form action="add_action.php" method="post">
-		<label>Slot: <input type="text" name="slot"> </label><br>
 		<label>Name: <input type="text" name="name"></label><br>
-		<label>Email: <input type="text" name="email"></label><br>
+		<label>Details: <textarea name="details" cols="40"></textarea></label><br>
+		<label>Due: <input type="date" name="due"></label><br>
 		<input type="submit">
 	</form>
   </body> 

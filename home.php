@@ -28,47 +28,50 @@
 		try { 
 		  $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
 		  echo "<h2>Task List</h2>\n"; 
+		  
+		  
 		  $stmt = $pdo->query("select * from task order by id");
 	?>
-		<form action="">  
-			Name: <input type="text" id="txt1" onkeyup="showHint(this.value)"> 
-		</form> 
-		 
-		<p>Suggestions: <span id="txtHint"></span></p> 
 		
-		<table border="1">
+		<input type="text" id="keyword" onkeyup="showHint(this.value)"> 
+		
+		<div id="tableTask">
+		<table>
 			<tr>
-				<th> Id </th>
-				<th> Name </th>
-				<th> Details </th>
-				<th> Due </th>
-				<th> Action </th>
+			  <th>Id</th>
+			  <th>Name</th>
+			  <th>Details</th>
+			  <th>Due</th>
+			  <th>Action</th>
 			</tr>
-	<?php
-		  foreach($stmt as $row) { 
-	?>
-			<tr>
-				<td><?php echo $row["id"];?></td>
-				<td><?php echo $row["name"];?></td>
-				<td><?php echo $row["details"];?></td>
-				<td><?php echo $row["due"];?></td>
-				<td><a href="<?php echo 'edit.php?id=', $row['id'];?>"><img src='edit.png' style='width:30px;height:30px;'></a>
-					<a href="<?php echo 'delete.php?slot=', $row['id'];?>"><img src='remove.png' style='width:30px;height:30px;'></a> 
-				</td>
-			</tr>
-		</table>
+			<tbody>
 			
-	<?php	  
-		  } 
-			
-		  
-		  $pdo = NULL; 
-		} 
-		catch (PDOException $e) { 
-		  exit("PDO Error: ".$e->getMessage()."<br>"); 
-		} 
-	?> 
-		<script src="php11F_suggestion.js"></script> 
+			  <?php while ($row = $stmt->fetch()) { 
+			  ?>
+			  <tr>
+			  <td><?php echo $row["id"]; ?></td>
+			  <td><?php echo $row["name"]; ?></td>
+			  <td><?php echo $row["details"]; ?></td>
+			  <td><?php echo $row["due"]; ?></td>
+				<!--Menambahkan icon-->
+				  <td>
+					<a href='form_update.php?id=<?= $row['id'] ?>'><img width='30em' height='30em' src='edit.png'></a>
+					<a href='form_delete.php?id=<?= $row['id'] ?>'><img width='30em' height='30em' src='remove.png'></a></td>
+				  </td>
+			  </tr>	
+	
+      <?php 
+      } 
+        
+	  $pdo = NULL;
+	}
+	catch (PDOException $e) {   
+	exit("PDO Error: ".$e->getMessage()."<br>");
+	}?>
+	  </tbody>
+	</table>
+	</div>
+		<script src="liveSearch.js"></script> 
   </body> 
 </html> 
 	

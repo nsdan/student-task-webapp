@@ -1,38 +1,32 @@
 <!DOCTYPE html> <html lang='en-GB'> 
   <head> 
-    <title>PHP11 H</title> 
+    <title>Delete</title> 
   </head> 
   <body> 
 	<?php
 	
 	session_start();
 		if (!isset($_SESSION['username'])){ 
-		  header("Location: php11D.php"); 
+		  header("Location: login.php"); 
 		} 
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "pbw09";
+	require 'dbconn.php';
 
-	  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-	  // set the PDO error mode to exception
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	 $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
 	 
-	 $slot = $_GET['slot'];
+	 $id = $_GET['id'];
 	 
-	 $sql = "DELETE FROM meetings WHERE slot ='$slot'";
+	 $sql = "DELETE FROM task WHERE id ='$id'";
 		
-	  $conn->exec($sql);
+	  $pdo->exec($sql);
 	  
 	  echo "
 		<script>
-		 alert('Berhasil dihapus');
-		 document.location.href='php11F.php';
+		 document.location.href='home.php';
 		</script>
 	  ";
 	 
-	$conn = null;
+	$pdo = null;
 	?>
   </body> 
 </html> 

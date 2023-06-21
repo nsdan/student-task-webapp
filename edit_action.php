@@ -26,7 +26,6 @@
 	  
 	  echo "
 		<script>
-		 alert('Berhasil diupdate');
 		 document.location.href='home.php';
 		</script>
 	  ";

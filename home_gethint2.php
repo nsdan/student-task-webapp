@@ -4,7 +4,13 @@ try {
 	
   $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
   //Code 6 
-  $stmt = $pdo->query("SELECT * FROM meetings WHERE name LIKE '%".$_GET['keyword']."%'");
+  
+
+  $stmt = $pdo->query("SELECT * FROM task WHERE name LIKE '%".$_GET['keyword']."%' 
+					  OR details LIKE '%".$_GET['keyword']."%'
+					  OR due LIKE '%".$_GET['keyword']."%'"
+				);
+  
  
 // lookup all hints if query result is not empty 	  
 	if ($stmt) { 
