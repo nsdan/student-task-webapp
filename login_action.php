@@ -19,7 +19,12 @@
 		  if($row){
 			  if(password_verify($password, $row["password"])){
 				  $_SESSION["username"] = $username;
-				  header("Location: home.php");
+				  
+				  if($_SESSION["username"] == "admin"){
+						header("Location: home.php");
+				  }else {
+					header("Location: user_home.php");
+				  }
 			  }else {
 				  echo 'password salah';
 			  }

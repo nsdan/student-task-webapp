@@ -14,18 +14,34 @@
 
 	 $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
 	 
-	 $id = $_GET['id'];
+	 $taskid = $_GET['id'];
 	 
-	 $sql = "DELETE FROM task WHERE id ='$id'";
-		
-	  $pdo->exec($sql);
+	 $sql = $pdo->query("SELECT id FROM user WHERE username ='".$_SESSION['username']."'");
+	 $row = $sql->fetch();
+	 $userid = $row['id'];
+	 
+	 
+	 if($_SESSION["username"] == "admin"){
+	     $sql = "DELETE FROM task WHERE id ='$id'";
+		 $pdo->exec($sql);
 	  
-	  echo "
-		<script>
-		 document.location.href='home.php';
-		</script>
-	  ";
-	 
+		  echo "
+			<script>
+			 document.location.href='home.php';
+			</script>
+		  ";
+		  
+	}else {
+		 $sql = "DELETE FROM user_task WHERE user_id ='$userid' AND task_id = '$taskid'";
+		 $pdo->exec($sql);
+	  
+		  echo "
+			<script>
+			 document.location.href='user_home.php';
+			</script>
+		  ";
+	}
+				 
 	$pdo = null;
 	?>
   </body> 

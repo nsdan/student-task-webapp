@@ -30,8 +30,22 @@
 					  </script>";
 			  }else{
 				$password = password_hash($password, PASSWORD_DEFAULT);
-				$sql = $pdo->query("INSERT INTO user VALUES('', '$username', '$password')");
+				
+				# Reset AUTO_INCREMENT
+				$sql= $pdo->query("SELECT MAX(id) FROM user");
 				$row = $sql->fetch();
+				$maxid = $row['MAX(id)'];
+				
+				$sql= $pdo->query("ALTER TABLE user AUTO_INCREMENT = " . ($maxid + 1));
+				
+				# Insert User
+				$adduser = $pdo->query("INSERT INTO user VALUES('', '$username', '$password')");
+				
+				$getid = $pdo->query("SELECT id FROM user WHERE username = '$username'");
+				$row = $getid->fetch();
+				
+				$addrole = $pdo->query("INSERT INTO user_role VALUES('','".$row["id"]."', '2')");
+				
 				header("Location: login.php");
 			  }			  
 		  }

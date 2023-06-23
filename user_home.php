@@ -27,10 +27,21 @@
 		
 		try { 
 		  $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
-		  echo "<h2>Task List</h2>\n"; 
-		  
-		  
-		  $stmt = $pdo->query("select * from task order by id");
+		  echo "<h2>Task List ". $_SESSION['username'] ."</h2>\n"; 
+		 
+		 
+		 $sql = $pdo->query("SELECT id FROM user WHERE username ='".$_SESSION['username']."'");
+		 $row = $sql->fetch();
+		 
+		 $sql= $pdo->query("SELECT task_id FROM user_task WHERE user_id ='".$row["id"]."'");
+		 $row = $sql->fetchAll();
+		 
+		 $task = [];
+		 foreach($row as $x) {
+			array_push($task, $x['task_id']);
+		}
+					
+		 $stmt= $pdo->query("SELECT * FROM task WHERE id IN (" . implode(',', $task) . ")");
 	?>
 		
 		<input type="text" id="keyword" onkeyup="showHint(this.value)"> 
@@ -43,7 +54,7 @@
 
 		<table>
 			<tr>
-			  <th>Id</th>
+			  <th>No</th>
 			  <th>Name</th>
 			  <th>Details</th>
 			  <th>Due</th>
@@ -51,10 +62,12 @@
 			</tr>
 			<tbody>
 			
-			  <?php while ($row = $stmt->fetch()) { 
+			  <?php 
+				$num=0;
+				while ($row = $stmt->fetch()) { 
 			  ?>
 			  <tr>
-			  <td><?php echo $row["id"]; ?></td>
+			  <td><?php $num++; echo $num; ?></td>
 			  <td><?php echo $row["name"]; ?></td>
 			  <td><?php echo $row["details"]; ?></td>
 			  <td><?php echo $row["due"]; ?></td>

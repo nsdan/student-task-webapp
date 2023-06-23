@@ -18,7 +18,7 @@
 	?>
 	
 	<form action="edit_action.php" method="post">
-		<label>Id: <input type="text" name="id" required value="<?php echo $row["id"]?>"> </label><br>
+		<input type="hidden" name="id" required value="<?php echo $row["id"]?>">
 		<label>Name: <input type="text" name="name" required value="<?php echo $row["name"]?>"></label><br>
 		<label>Details: <textarea name="details" cols="40"> <?php echo $row["details"]?></textarea></label><br>
 		<label>Due: <input type="date" name="due" required value="<?php echo $row["due"]?>"></label><br>
