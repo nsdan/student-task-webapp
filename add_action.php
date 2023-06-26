@@ -4,12 +4,8 @@
   </head> 
   <body> 
 	<?php
-
-	session_start();
-		if (!isset($_SESSION['username'])){ 
-		  header("Location: login.php"); 
-		} 
-
+	
+	require 'authentication.php';
 	require 'dbconn.php';
 
 	try {

@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Halaman Registrasi</title>
-	<style>
-		 body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #f1f1f1;
       margin: 0;
       padding: 0;
     }
     
+	h1 {
+		margin: 30vh 0 0 0;
+		 text-align: center;
+	}
+	
     form {
       width: 300px;
       margin: 10px auto 0px;
@@ -25,7 +25,6 @@
     
     label {
       font-weight: bold;
-	  width: 100%;
     }
     
     input[type="text"],
@@ -55,36 +54,25 @@
       background-color: #45a049;
     }
 	
-	h1 {
-		margin: 200px auto 0px;
-		 text-align: center;
-	}
-	</style>
-</head>
-<body>
+	.register-link {
+      text-align: center;
+	  font-size:16px;
+    }
+	
+	.error {
+   background: #F2DEDE;
+   color: #A94442;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 5px auto;
+}
 
-<h1>Halaman Registrasi</h1>
-
-<form action="register_action.php" method="post">
-	<table>
-		<tr>
-			<td><label for="username">username :</label></td>
-			<td><input type="text" name="username" id="username"></td>
-		</tr>
-		<tr>
-			<td><label for="password">password :</label></td>
-			<td><input type="password" name="password" id="password"></td>
-		</tr>
-		<tr>
-			<td><label for="password2">konfirmasi password :</label></td>
-			<td><input type="password" name="password2" id="password2"></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="Register"></td>
-			<td></td>
-         </tr>
-	</table>
-</form>
-
-</body>
-</html>
+	.success {
+   background: #D4EDDA;
+   color: #7D9F74;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 5px auto;
+}

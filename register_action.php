@@ -20,14 +20,10 @@
 		  $row = $sql->fetch();
 		  
 		  if($row){
-			  echo "<script>
-						alert('username sudah terdaftar!');
-					  </script>";
+			  header("Location: index.php?error=Username already taken");
 		  }else {
 			  if( $password !== $password2 ) {
-				echo "<script>
-						alert('konfirmasi password tidak sesuai!');
-					  </script>";
+				header("Location: index.php?error=Confirmation password invalid");
 			  }else{
 				$password = password_hash($password, PASSWORD_DEFAULT);
 				
@@ -46,11 +42,11 @@
 				
 				$addrole = $pdo->query("INSERT INTO user_role VALUES('','".$row["id"]."', '2')");
 				
-				header("Location: login.php");
+				header("Location: login.php?success=Regristration successful");
+				exit();
 			  }			  
 		  }
 		  
-		  echo "registrasi gagal";
 		  $pdo = NULL; 
 		} 
 		catch (PDOException $e) { 

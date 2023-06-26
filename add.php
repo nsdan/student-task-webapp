@@ -1,20 +1,31 @@
 <!DOCTYPE html> <html lang='en-GB'> 
   <head> 
-    <title>PHP11 E</title> 
+    <title>Add Task</title> 
+	<link rel="stylesheet" href="css/form_style.css">
   </head> 
   <body> 
-	<?php
-	session_start();
-		if (!isset($_SESSION['username'])){ 
-		  header("Location: login.php"); 
-		} 
-	?>
-	<h1>Form Menambahkan Data Meeting</h1>
+	<?php require 'authentication.php'; ?>
+	<h1>Add Task</h1>
 	<form action="add_action.php" method="post">
-		<label>Name: <input type="text" name="name"></label><br>
-		<label>Details: <textarea name="details" cols="40"></textarea></label><br>
-		<label>Due: <input type="date" name="due"></label><br>
-		<input type="submit">
+	<table>
+      <tr>
+        <td><label>Name:</label></td>
+        <td><input type="text" name="name"></td>
+      </tr>
+      <tr>
+        <td><label>Details:</label></td>
+        <td><textarea name="details" cols="20"></textarea></td>
+      </tr>
+	  <tr>
+        <td><label>Due:</label></td>
+        <td><input type="date" name="due"></td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="Submit"></td>
+        <td>  	
+		</td>
+      </tr>
+    </table>
 	</form>
   </body> 
 </html> 

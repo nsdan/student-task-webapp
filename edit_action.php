@@ -5,11 +5,7 @@
   <body> 
 	<?php
 	
-	session_start();
-		if (!isset($_SESSION['username'])){ 
-		  header("Location: php11D.php"); 
-		} 
-		
+	require 'authentication.php';
 	require 'dbconn.php';
 
 	 $pdo = new PDO($dsn,$db_username,$db_password,$opt); 

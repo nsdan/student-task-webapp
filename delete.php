@@ -5,11 +5,7 @@
   <body> 
 	<?php
 	
-	session_start();
-		if (!isset($_SESSION['username'])){ 
-		  header("Location: login.php"); 
-		} 
-
+	require 'authentication.php';
 	require 'dbconn.php';
 	try { 
 	 $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
@@ -22,25 +18,17 @@
 	 
 	 
 	 if($_SESSION['username'] == "admin"){
-	     $sql = "DELETE FROM task WHERE id ='$taskid'";
-		 $pdo->exec($sql);
-	  
-		  echo "
+	     $sql = "DELETE FROM task WHERE id ='$taskid'";		 
+	}else {
+		 $sql = "DELETE FROM user_task WHERE user_id ='$userid' AND task_id = '$taskid'";
+	};
+	
+	$pdo->exec($sql);  
+	echo "
 			<script>
 			 document.location.href='home.php';
 			</script>
-		  ";
-		  
-	}else {
-		 $sql = "DELETE FROM user_task WHERE user_id ='$userid' AND task_id = '$taskid'";
-		 $pdo->exec($sql);
-	  
-		  echo "
-			<script>
-			 document.location.href='user_home.php';
-			</script>
-		  ";
-	};
+		 ";
 				 
 	$pdo = null;
 	}

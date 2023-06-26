@@ -1,9 +1,6 @@
 <?php
 
-	session_start();
-		if (!isset($_SESSION['username'])){ 
-		  header("Location: login.php"); 
-		} 
+	require 'authentication.php';
 		
 require 'dbconn.php';
 try {
@@ -51,8 +48,12 @@ try {
 		<td><?= $row["details"]; ?></td>
 		<td><?= $row["due"]; ?></td>
 		<td>
-		  <a href="form_update.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="edit.png"></a>
-		  <a href="form_delete.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="remove.png"></a>
+		  <?php if($_SESSION['username'] == "admin"){ ?>
+			  <a href="form_update.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="edit.png"></a>
+			  <a href="form_delete.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="remove.png"></a>
+		  <?php } else { ?>
+			  <a class="button" href='delete.php?id=<?= $row['id'] ?>'>Mark As Done</a>
+		  <?php } ?>
 		</td>
 	  </tr>
 	<?php endforeach; ?>

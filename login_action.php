@@ -19,19 +19,13 @@
 		  if($row){
 			  if(password_verify($password, $row["password"])){
 				  $_SESSION["username"] = $username;
-				  
-				  if($_SESSION["username"] == "admin"){
-						header("Location: home.php");
-				  }else {
-					header("Location: user_home.php");
-				  }
-			  }else {
-				  echo 'password salah';
-			  }
-		  }else {
-			  echo 'username tidak ditemukan';
+				  header("Location: home.php");
+				  exit();
+			}
 		  }
-		  
+		 
+		 header("Location: login.php?error=Username or Password invalid");
+
 		  $pdo = NULL; 
 		} 
 		catch (PDOException $e) { 
