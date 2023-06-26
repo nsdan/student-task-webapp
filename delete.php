@@ -11,7 +11,7 @@
 		} 
 
 	require 'dbconn.php';
-
+	try { 
 	 $pdo = new PDO($dsn,$db_username,$db_password,$opt); 
 	 
 	 $taskid = $_GET['id'];
@@ -21,8 +21,8 @@
 	 $userid = $row['id'];
 	 
 	 
-	 if($_SESSION["username"] == "admin"){
-	     $sql = "DELETE FROM task WHERE id ='$id'";
+	 if($_SESSION['username'] == "admin"){
+	     $sql = "DELETE FROM task WHERE id ='$taskid'";
 		 $pdo->exec($sql);
 	  
 		  echo "
@@ -40,9 +40,13 @@
 			 document.location.href='user_home.php';
 			</script>
 		  ";
-	}
+	};
 				 
 	$pdo = null;
+	}
+	catch (PDOException $e) { 
+		  exit("PDO Error: ".$e->getMessage()."<br>"); 
+		} 
 	?>
   </body> 
 </html> 

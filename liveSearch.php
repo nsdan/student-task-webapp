@@ -1,11 +1,27 @@
 <?php
+
+	session_start();
+		if (!isset($_SESSION['username'])){ 
+		  header("Location: login.php"); 
+		} 
+		
 require 'dbconn.php';
 try {
   $pdo = new PDO($dsn,$db_username,$db_password,$opt);
-  $query = "SELECT * FROM task WHERE 
+  
+   if($_SESSION['username'] == "admin"){
+	     $query = "SELECT * FROM task WHERE 
+            name LIKE CONCAT('%',?,'%') OR
+            details LIKE CONCAT('%',?,'%') OR
+            due LIKE CONCAT('%',?,'%')";   
+   } else {
+	   	     $query = "SELECT * FROM utaskview WHERE 
             name LIKE CONCAT('%',?,'%') OR
             details LIKE CONCAT('%',?,'%') OR
             due LIKE CONCAT('%',?,'%')";
+   }
+
+			
   $stmt = $pdo->prepare($query);
   $stmt->execute(array($_GET['keyword'], $_GET['keyword'], $_GET['keyword']));
   
@@ -17,7 +33,7 @@ try {
   
   <table>
     <tr>
-      <th>Id</th>
+      <th>No</th>
       <th>Name</th>
       <th>Details</th>
       <th>Due</th>
@@ -25,9 +41,12 @@ try {
     </tr>
     <tbody>
     
-     <?php foreach ($stmt as $row): ?>
+     <?php 
+		$num=0;
+		foreach ($stmt as $row): 
+	 ?>
 	  <tr>
-		<td><?= $row["id"]; ?></td>
+		<td><?php $num++; echo $num; ?></td>
 		<td><?= $row["name"]; ?></td>
 		<td><?= $row["details"]; ?></td>
 		<td><?= $row["due"]; ?></td>
