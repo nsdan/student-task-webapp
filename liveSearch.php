@@ -49,10 +49,10 @@ try {
 		<td><?= $row["due"]; ?></td>
 		<td>
 		  <?php if($_SESSION['username'] == "admin"){ ?>
-			  <a href="form_update.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="edit.png"></a>
-			  <a href="form_delete.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="remove.png"></a>
+			  <a href="edit.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="icon/edit.png"></a>
+			  <a href="delete.php?id=<?= $row['id'] ?>"><img width="30em" height="30em" src="icon/remove.png"></a>
 		  <?php } else { ?>
-			  <a class="button" href='delete.php?id=<?= $row['id'] ?>'>Mark As Done</a>
+			  <a class="btn-grn" href='delete.php?id=<?= $row['id'] ?>'>Mark As Done</a>
 		  <?php } ?>
 		</td>
 	  </tr>

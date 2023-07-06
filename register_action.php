@@ -42,6 +42,17 @@
 				
 				$addrole = $pdo->query("INSERT INTO user_role VALUES('','".$row["id"]."', '2')");
 				
+				#Insert All Task to new User
+				$getid = $pdo->query("SELECT id FROM user WHERE username = '$username'");
+				$userid = $getid->fetch();
+							
+				$getalltask = $pdo->query("SELECT * FROM task");
+				$row = $getalltask->fetchAll();
+				 
+				foreach($row as $task) {
+					$pdo->query("INSERT INTO user_task VALUES('','".$userid['id']."', '".$task["id"]."')");
+				}
+							
 				header("Location: login.php?success=Regristration successful");
 				exit();
 			  }			  

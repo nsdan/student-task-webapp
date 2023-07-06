@@ -16,7 +16,7 @@
 	 $details = $_REQUEST['details'];
 	 $due = $_REQUEST['due'];
 	 
-	 $sql = "UPDATE task SET name='$name', details='$details' WHERE id = '$id'";
+	 $sql = "UPDATE task SET name='$name', details='$details', due='$due' WHERE id = '$id'";
 		
 	 $pdo->exec($sql);
 	  
